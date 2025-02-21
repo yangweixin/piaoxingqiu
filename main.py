@@ -9,7 +9,7 @@ session_id = config.session_id
 buy_count = config.buy_count
 audience_idx = config.audience_idx
 deliver_method = config.deliver_method
-seat_plan_id = config.seat_plan_id
+seat_plan_id = ""
 session_id_exclude = []  # 被排除掉的场次
 price = 0
 
@@ -45,11 +45,11 @@ while True:
                         break
                 break
         # 如果没有拿到seat_plan_id，说明该场次所有座位的余票都不满足购票数量需求，就重新开始刷下一场次
-        # if not seat_plan_id:
-        #     print("该场次" + session_id + "没有符合条件的座位，将为你继续搜寻其他在售场次")
-        #     session_id_exclude.append(session_id)  # 排除掉这个场次
-        #     session_id = ''
-        #     continue
+        if not seat_plan_id:
+            print("该场次" + session_id + "没有符合条件的座位，将为你继续搜寻其他在售场次")
+            # session_id_exclude.append(session_id)  # 排除掉这个场次
+            # session_id = ''
+            continue
 
         if not deliver_method:
             deliver_method = request.get_deliver_method(show_id, session_id, seat_plan_id, price, buy_count)
